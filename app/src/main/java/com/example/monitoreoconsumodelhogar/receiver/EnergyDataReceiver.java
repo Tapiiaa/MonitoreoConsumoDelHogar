@@ -1,11 +1,7 @@
-package com.example.monitoreoconsumodelhogar;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.monitoreoconsumodelhogar.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
-import android.widget.TextView;
 
 import java.text.BreakIterator;
 

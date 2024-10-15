@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar;
+package com.example.monitoreoconsumodelhogar.services;
 
 import android.app.Service;
 import android.content.Intent;

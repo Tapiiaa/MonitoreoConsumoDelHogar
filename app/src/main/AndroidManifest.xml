@@ -23,7 +23,7 @@
 
         <!-- Declaración del servicio de segundo plano -->
         <service
-            android:name=".EnergyDataService"
+            android:name=".services.EnergyDataService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="true" />
     </application>

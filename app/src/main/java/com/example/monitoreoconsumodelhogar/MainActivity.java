@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.monitoreoconsumodelhogar.services.EnergyDataService;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView energyDataView;
