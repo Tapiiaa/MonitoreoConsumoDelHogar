@@ -6,19 +6,37 @@
     android:gravity="center"
     android:padding="16dp">
 
+    <!-- Visualización del consumo energético por cada hilo -->
     <TextView
-        android:id="@+id/energy_data"
+        android:id="@+id/task_view_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Consumo Energético: 0 kWh"
-        android:textSize="18sp" />
+        android:text="Hilo 0: 0 kWh"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
-        android:id="@+id/recommendations"
+        android:id="@+id/task_view_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recomendaciones aparecerán aquí"
+        android:text="Hilo 1: 0 kWh"
         android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/task_view_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hilo 2: 0 kWh"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/task_view_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hilo 3: 0 kWh"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"/>
 
 </LinearLayout>
