@@ -9,21 +9,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <!-- Actividad de inicio de sesión (Login) -->
-        <activity android:name=".activities.LoginActivity"
-            android:exported="true">
+        <!-- Actividad de splash screen -->
+        <activity android:name=".activities.SplashActivity"
+            android:exported="true"> <!-- Sin tema específico -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- Actividad de inicio de sesión (Login) -->
+        <activity android:name=".activities.AccessActivity"
+            android:exported="true" />
+
+        <activity android:name=".activities.WelcomeActivity"
+           android:exported="true" />
+
         <!-- MainActivity (después de iniciar sesión) -->
         <activity android:name=".activities.MainActivity"
             android:exported="true" />
 
         <!-- Bienvenida y otras actividades adicionales -->
-        <activity android:name=".activities.WelcomeActivity" />
         <activity android:name=".activities.CreateRoomActivity" />
         <activity android:name=".activities.CreateHallActivity" />
 

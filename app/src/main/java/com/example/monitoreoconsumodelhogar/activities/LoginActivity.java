@@ -1,3 +1,4 @@
+/*
 package com.example.monitoreoconsumodelhogar.activities;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -89,3 +91,4 @@ public class LoginActivity extends AppCompatActivity {
 
 
 }
+*/
