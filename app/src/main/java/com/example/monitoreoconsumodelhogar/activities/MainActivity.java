@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
         createRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CreateRoomActivity.class);
+                Intent intent;
+                intent = new Intent(MainActivity.this, CreateRoomActivity.class);
                 startActivity(intent);
             }
         });
