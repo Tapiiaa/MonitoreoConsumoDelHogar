@@ -3,6 +3,7 @@ package com.example.monitoreoconsumodelhogar.activities;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,20 +19,43 @@ import com.example.monitoreoconsumodelhogar.Enums.HallDevices;
 import com.example.monitoreoconsumodelhogar.Enums.KitchenDevices;
 import com.example.monitoreoconsumodelhogar.Enums.LivingroomDevices;
 import com.example.monitoreoconsumodelhogar.R;
+import com.example.monitoreoconsumodelhogar.threads.ThreadManager;
+import com.example.monitoreoconsumodelhogar.threads.EnergyTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CreateRoomActivity extends AppCompatActivity {
 
     private double totalKWh = 0.0;
     private List<String> addedDevices = new ArrayList<>();
     private ArrayAdapter<String> devicesAdapter;
+    private ThreadManager threadManager;
+    private ExecutorService executorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_room);
+
+        //Inicializamos el threadManager con 3 hilos
+        threadManager = new ThreadManager(3);
+
+        //Inicializamos el executorService con un pool de 5 hilos
+        executorService = Executors.newFixedThreadPool(5);
+
+        executorService.submit(() -> {
+            try {
+                Thread.sleep(500);
+                runOnUiThread(() ->{
+                    Log.d("CreateRoomActivity", "Recursos iniciales cargados");
+                });
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        });
 
         EditText roomTitle = findViewById(R.id.roomTitle);
         EditText roomDimensions = findViewById(R.id.roomDimensions);
@@ -63,7 +87,17 @@ public class CreateRoomActivity extends AppCompatActivity {
 
         addMultiplugButton.setOnClickListener(v -> {
             totalKWh += 1.2; // KWh fijo para un multienchufe
+            addedDevices.add("Multienchufe");
+            devicesAdapter.notifyDataSetChanged();
+
+            //No podemos agregar mas de 5 multienchufes
+            if (addedDevices.size() >= 5) {
+                addMultiplugButton.setEnabled(false);
+            }
             kwhTextView.setText("KWh: " + totalKWh);
+
+            threadManager.submitTask(new EnergyTask(addedDevices.size(), getApplicationContext()));
+
         });
 
         addDeviceButton.setOnClickListener(v -> {
@@ -135,9 +169,22 @@ public class CreateRoomActivity extends AppCompatActivity {
            addedDevices.add(selectedDeviceName);
            devicesAdapter.notifyDataSetChanged();
            kwhTextView.setText("KWh: " + totalKWh);
+
+           //Ejecutamos una tarea en segundo plano para simular el consumo energético.
+           threadManager.submitTask(new EnergyTask(addedDevices.size(), getApplicationContext()));
+
         });
 
         builder.create().show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Apagar los hilos de manera controlada al destruir la actividad
+        if(threadManager != null){
+            threadManager.shutdown();
+        }
+        threadManager.shutdown();
+    }
 }
