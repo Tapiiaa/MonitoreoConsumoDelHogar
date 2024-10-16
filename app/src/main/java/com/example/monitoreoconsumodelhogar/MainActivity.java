@@ -1,18 +1,13 @@
 package com.example.monitoreoconsumodelhogar;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
-
-import com.example.monitoreoconsumodelhogar.R;
-import com.example.monitoreoconsumodelhogar.threads.EnergyDataWorker;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,14 +24,11 @@ public class MainActivity extends AppCompatActivity {
         taskViews[2] = findViewById(R.id.task_view_3);
         taskViews[3] = findViewById(R.id.task_view_4);
 
-        // Registrar receptor para recibir datos de consumo energético
+        // Registrar receptor con el atributo adecuado
         IntentFilter filter = new IntentFilter("com.example.CONSUMO_ENERGETICO");
-        registerReceiver(energyDataReceiver, filter);
-
-        // Programar el Worker con WorkManager
-        OneTimeWorkRequest energyDataWorkRequest = new OneTimeWorkRequest.Builder(EnergyDataWorker.class)
-                .build();
-        WorkManager.getInstance(this).enqueue(energyDataWorkRequest);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            registerReceiver(energyDataReceiver, filter, Context.RECEIVER_NOT_EXPORTED);  // Indica si es exportado o no
+        }
     }
 
     private final BroadcastReceiver energyDataReceiver = new BroadcastReceiver() {
