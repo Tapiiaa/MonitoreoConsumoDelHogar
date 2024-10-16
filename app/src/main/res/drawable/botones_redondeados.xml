@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="16dp" /> <!-- Ajusta el radio según tus necesidades -->
+    <solid android:color="@color/orange" /> <!-- Cambia el color a lo que prefieras -->
+</shape>
