@@ -4,15 +4,40 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:rotationX="2"
+        android:text="Monitoreo Consumo Del Hogar"
+
+        android:textSize="24sp" />
+
     <Button
         android:id="@+id/createRoomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crear Habitación" />
+        android:text="Crear Habitación"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="325dp"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:elevation="4dp"
+        android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/createHallButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crear Pasillo" />
+        android:text="Crear Pasillo"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button"
+        android:textColor="#FFFFFF"
+        android:elevation="4dp"/>
 </LinearLayout>
