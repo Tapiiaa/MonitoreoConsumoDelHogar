@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
