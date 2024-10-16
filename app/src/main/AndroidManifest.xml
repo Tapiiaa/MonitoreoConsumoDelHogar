@@ -9,7 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".activities.WelcomeActivity"
+        <!-- Actividad de inicio de sesión (Login) -->
+        <activity android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +18,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.MainActivity" />
+        <!-- MainActivity (después de iniciar sesión) -->
+        <activity android:name=".activities.MainActivity"
+            android:exported="true" />
+
+        <!-- Bienvenida y otras actividades adicionales -->
+        <activity android:name=".activities.WelcomeActivity" />
         <activity android:name=".activities.CreateRoomActivity" />
         <activity android:name=".activities.CreateHallActivity" />
 
