@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -10,7 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create Room"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        />
+
 
     <EditText
         android:id="@+id/roomTitle"
@@ -33,13 +38,27 @@
         android:layout_height="wrap_content"
         android:text="Añadir Dispositivos"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="176dp"
+        android:layout_gravity="center"
+        android:background="@drawable/botones_redondeados"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8"/>
 
     <Button
         android:id="@+id/addMultiplugButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Añadir Multienchufe" />
+        android:text="Añadir Multienchufe"
+        android:layout_marginBottom="176dp"
+        android:layout_marginTop="-150dp"
+        android:layout_gravity="center"
+        android:background="@drawable/botones_redondeados"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8"/>
 
     <ListView
         android:id="@+id/devicesListView"
