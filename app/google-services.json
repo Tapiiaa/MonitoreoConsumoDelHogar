@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "974726814520",
+    "project_id": "monitoreoconsumodelhogar",
+    "storage_bucket": "monitoreoconsumodelhogar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974726814520:android:531780f829e27e6265ffcd",
+        "android_client_info": {
+          "package_name": "com.example.monitoreodelhogar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974726814520-vigsv4helgvu9t5029pb30bk0c4bnbeo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJwDq0eFZTOfRu5iJ-AJg81aImb2oWz90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974726814520-vigsv4helgvu9t5029pb30bk0c4bnbeo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

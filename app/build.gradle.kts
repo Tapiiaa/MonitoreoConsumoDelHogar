@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -68,5 +69,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(kotlin("script-runtime"))
-    implementation("androidx.work:work-runtime:2.7.1")
+    implementation(libs.androidx.work.runtime)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+
 }
