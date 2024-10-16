@@ -1,3 +1,4 @@
+/*
 package com.example.monitoreoconsumodelhogar.activities;
 
 import android.content.Intent;
@@ -90,3 +91,4 @@ public class LoginActivity extends AppCompatActivity {
 
 
 }
+*/
