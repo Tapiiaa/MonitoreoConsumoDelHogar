@@ -13,30 +13,43 @@
         android:textSize="24sp" />
 
     <EditText
+        android:id="@+id/roomTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingresa el nombre de la habitación"
+        android:inputType="text"
+        />
+
+    <EditText
         android:id="@+id/roomDimensions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ingresa las dimensiones de la habitación"
         android:inputType="text" />
 
-    <EditText
-        android:id="@+id/roomColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingresa el color de la habitación"
-        android:inputType="text" />
-
     <Button
-        android:id="@+id/addLampButton"
+        android:id="@+id/addDeviceButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Añadir Lámpara" />
+        android:text="Añadir Dispositivos"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:id="@+id/addMultiplugButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Añadir Multienchufe" />
+
+    <ListView
+        android:id="@+id/devicesListView"
+        android:layout_width="match_parent"
+        android:layout_height="253dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="8dp" />
+
+
 
     <TextView
         android:id="@+id/kwhTextView"
