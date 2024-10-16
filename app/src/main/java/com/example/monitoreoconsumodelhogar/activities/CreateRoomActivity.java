@@ -17,6 +17,7 @@ public class CreateRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_room);
 
+        EditText roomTitle = findViewById(R.id.roomTitle);
         EditText roomDimensions = findViewById(R.id.roomDimensions);
         EditText roomColor = findViewById(R.id.roomColor);
         Button addLampButton = findViewById(R.id.addLampButton);
