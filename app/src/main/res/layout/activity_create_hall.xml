@@ -1,19 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewHallTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Hall"
+        android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/hallSize"
+        android:id="@+id/hallDimensions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Medidas del pasillo" />
+        android:hint="Ingresa las dimensiones del pasillo"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/hallColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Color del pasillo" />
+        android:hint="Ingresa el color del pasillo"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/addLightButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Añadir Luz" />
+
+    <Button
+        android:id="@+id/addSensorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Añadir Sensor" />
+
+    <TextView
+        android:id="@+id/kwhHallTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KWh: 0"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>
