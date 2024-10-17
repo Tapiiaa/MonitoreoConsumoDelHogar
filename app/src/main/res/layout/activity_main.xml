@@ -46,7 +46,7 @@
         android:id="@+id/viewRoomsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ver Habitaciones"
+        android:text="Ver Habitaciones y pasillos"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@drawable/botones_redondeados"/>

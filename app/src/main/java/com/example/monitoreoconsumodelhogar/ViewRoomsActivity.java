@@ -1,4 +1,5 @@
 package com.example.monitoreoconsumodelhogar;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import android.database.MergeCursor;
 
 public class ViewRoomsActivity extends AppCompatActivity {
 
@@ -24,13 +26,18 @@ public class ViewRoomsActivity extends AppCompatActivity {
         viewGraphButton = findViewById(R.id.viewGraphButton); // Botón "Ver gráfico"
 
         // Obtener todas las habitaciones y pasillos de la base de datos
-        Cursor cursor = dbHelper.getAllRooms();
+        Cursor roomCursor = dbHelper.getAllRooms();
+        Cursor hallCursor = dbHelper.getAllHalls();
 
-        if (cursor != null && cursor.getCount() > 0) {
+        if ((roomCursor != null && roomCursor.getCount() > 0) || (hallCursor != null && hallCursor.getCount() > 0)) {
+            // Combinar los cursores de habitaciones y pasillos
+            MergeCursor mergeCursor = new MergeCursor(new Cursor[]{roomCursor, hallCursor});
+
             String[] from = {RoomDatabaseHelper.COLUMN_NAME, RoomDatabaseHelper.COLUMN_DEVICES, RoomDatabaseHelper.COLUMN_KWH};
             int[] to = {R.id.roomName, R.id.roomDevices, R.id.roomKwh};
 
-            SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.room_item, cursor, from, to, 0);
+            // Adaptador para habitaciones y pasillos combinados
+            SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.room_item, mergeCursor, from, to, 0);
             roomsListView.setAdapter(adapter);
         } else {
             Toast.makeText(this, "No hay habitaciones o pasillos guardados", Toast.LENGTH_SHORT).show();

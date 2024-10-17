@@ -1,4 +1,5 @@
 package com.example.monitoreoconsumodelhogar;
+
 import android.database.Cursor;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,8 +8,10 @@ import android.widget.LinearLayout;
 public class GraphActivity extends AppCompatActivity {
 
     private RoomDatabaseHelper dbHelper;
-    private double[] kwhData;
+    private double[] kwhRoomData;
     private String[] roomNames;
+    private double[] kwhHallData;
+    private String[] hallNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,26 +22,51 @@ public class GraphActivity extends AppCompatActivity {
         loadGraphData();
 
         LinearLayout graphLayout = findViewById(R.id.graphLayout);
-        PieChartView pieChartView = new PieChartView(this, kwhData, roomNames);
-        graphLayout.addView(pieChartView);
+
+        // Crear gráfico para habitaciones
+        PieChartView roomPieChartView = new PieChartView(this, kwhRoomData, roomNames);
+        graphLayout.addView(roomPieChartView);
+
+        // Crear gráfico para pasillos
+        PieChartView hallPieChartView = new PieChartView(this, kwhHallData, hallNames);
+        graphLayout.addView(hallPieChartView);
     }
 
     private void loadGraphData() {
-        Cursor cursor = dbHelper.getAllRooms();
-        int count = cursor.getCount();
-        kwhData = new double[count];
-        roomNames = new String[count];
-        int index = 0;
+        // Cargar datos de las habitaciones
+        Cursor roomCursor = dbHelper.getAllRooms();
+        int roomCount = roomCursor.getCount();
+        kwhRoomData = new double[roomCount];
+        roomNames = new String[roomCount];
+        int roomIndex = 0;
 
-        if (cursor != null && cursor.moveToFirst()) {
+        if (roomCursor != null && roomCursor.moveToFirst()) {
             do {
-                double kwh = cursor.getDouble(cursor.getColumnIndex(RoomDatabaseHelper.COLUMN_KWH));
-                String roomName = cursor.getString(cursor.getColumnIndex(RoomDatabaseHelper.COLUMN_NAME));
+                double kwh = roomCursor.getDouble(roomCursor.getColumnIndex(RoomDatabaseHelper.COLUMN_KWH));
+                String roomName = roomCursor.getString(roomCursor.getColumnIndex(RoomDatabaseHelper.COLUMN_NAME));
 
-                kwhData[index] = kwh;
-                roomNames[index] = roomName;
-                index++;
-            } while (cursor.moveToNext());
+                kwhRoomData[roomIndex] = kwh;
+                roomNames[roomIndex] = roomName;
+                roomIndex++;
+            } while (roomCursor.moveToNext());
+        }
+
+        // Cargar datos de los pasillos
+        Cursor hallCursor = dbHelper.getAllHalls();
+        int hallCount = hallCursor.getCount();
+        kwhHallData = new double[hallCount];
+        hallNames = new String[hallCount];
+        int hallIndex = 0;
+
+        if (hallCursor != null && hallCursor.moveToFirst()) {
+            do {
+                double kwh = hallCursor.getDouble(hallCursor.getColumnIndex(RoomDatabaseHelper.COLUMN_KWH));
+                String hallName = "Pasillo " + hallCursor.getInt(hallCursor.getColumnIndex(RoomDatabaseHelper.COLUMN_NUMBER));
+
+                kwhHallData[hallIndex] = kwh;
+                hallNames[hallIndex] = hallName;
+                hallIndex++;
+            } while (hallCursor.moveToNext());
         }
     }
 }
