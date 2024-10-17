@@ -46,7 +46,7 @@ public class ViewRoomsActivity extends AppCompatActivity {
             int[] to = {R.id.roomName, R.id.roomDevices, R.id.roomKwh};
 
             // Adaptador para habitaciones y pasillos combinados
-            SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.room_item, mergeCursor, from, to, 0);
+            adapter = new SimpleCursorAdapter(this, R.layout.room_item, mergeCursor, from, to, 0);
             roomsListView.setAdapter(adapter);
         } else {
             Toast.makeText(this, "No hay habitaciones o pasillos guardados", Toast.LENGTH_SHORT).show();
