@@ -1,6 +1,8 @@
 package com.example.monitoreoconsumodelhogar;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -10,6 +12,7 @@ public class ViewRoomsActivity extends AppCompatActivity {
 
     private RoomDatabaseHelper dbHelper;
     private ListView roomsListView;
+    private Button viewGraphButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,24 +21,24 @@ public class ViewRoomsActivity extends AppCompatActivity {
 
         dbHelper = new RoomDatabaseHelper(this);
         roomsListView = findViewById(R.id.roomsListView);
+        viewGraphButton = findViewById(R.id.viewGraphButton); // Botón "Ver gráfico"
 
         // Obtener todas las habitaciones y pasillos de la base de datos
         Cursor cursor = dbHelper.getAllRooms();
 
-        // Verificar si el cursor tiene datos
         if (cursor != null && cursor.getCount() > 0) {
-            // Definir las columnas de la base de datos a usar
             String[] from = {RoomDatabaseHelper.COLUMN_NAME, RoomDatabaseHelper.COLUMN_DEVICES, RoomDatabaseHelper.COLUMN_KWH};
-            // Definir los IDs de las vistas donde se mostrarán los datos
             int[] to = {R.id.roomName, R.id.roomDevices, R.id.roomKwh};
 
-            // Crear un SimpleCursorAdapter para vincular los datos de la base de datos con las vistas
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.room_item, cursor, from, to, 0);
             roomsListView.setAdapter(adapter);
         } else {
-            // Si no hay datos, mostrar un mensaje
             Toast.makeText(this, "No hay habitaciones o pasillos guardados", Toast.LENGTH_SHORT).show();
         }
+
+        viewGraphButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewRoomsActivity.this, GraphActivity.class);
+            startActivity(intent);
+        });
     }
 }
-
