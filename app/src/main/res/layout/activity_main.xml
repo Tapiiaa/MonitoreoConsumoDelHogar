@@ -17,7 +17,7 @@
 
     <Button
         android:id="@+id/createRoomButton"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/botones_redondeados"
@@ -31,7 +31,7 @@
 
     <Button
         android:id="@+id/createHallButton"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="Crear Pasillo"
         android:layout_marginBottom="176dp"
