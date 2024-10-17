@@ -1,5 +1,5 @@
 # Proyecto: Aplicación Monitoreo de Consumo del Hogar
-### Enlace al repositorio: 
+### Enlace al repositorio: https://github.com/Tapiiaa/MonitoreoConsumoDelHogar.git
 
 ## Introducción
 Este proyecto consiste en una aplicación Android para monitorear el consumo energético de los dispositivos dentro de un hogar. Los usuarios pueden añadir habitaciones o pasillos, asociar dispositivos a cada espacio, y visualizar el consumo energético total de los dispositivos agregados. Además, la aplicación permite compartir la información del hogar entre varios usuarios.
