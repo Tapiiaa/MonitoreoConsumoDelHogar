@@ -72,6 +72,9 @@ dependencies {
     implementation(kotlin("script-runtime"))
     implementation(libs.androidx.work.runtime)
 
+    implementation("com.google.firebase:firebase-database:21.0.0")
+    implementation("com.google.firebase:firebase-bom:33.4.0")
+
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
