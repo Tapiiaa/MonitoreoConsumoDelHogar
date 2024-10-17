@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar;
+package com.example.monitoreoconsumodelhogar.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

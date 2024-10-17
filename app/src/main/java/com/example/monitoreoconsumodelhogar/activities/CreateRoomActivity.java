@@ -23,7 +23,7 @@ import com.example.monitoreoconsumodelhogar.Enums.LivingroomDevices;
 import com.example.monitoreoconsumodelhogar.R;
 import com.example.monitoreoconsumodelhogar.threads.ThreadManager;
 import com.example.monitoreoconsumodelhogar.threads.EnergyTask;
-import com.example.monitoreoconsumodelhogar.RoomDatabaseHelper;
+import com.example.monitoreoconsumodelhogar.database.RoomDatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -32,8 +32,8 @@
         <!-- Actividades adicionales -->
         <activity android:name=".activities.CreateRoomActivity" />
         <activity android:name=".activities.CreateHallActivity" />
-        <activity android:name=".ViewRoomsActivity" />
-        <activity android:name=".GraphActivity" /> <!-- Añadido para la actividad del gráfico -->
+        <activity android:name=".activities.ViewRoomsActivity" />
+        <activity android:name=".activities.GraphActivity" /> <!-- Añadido para la actividad del gráfico -->
 
     </application>
 </manifest>

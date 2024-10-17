@@ -5,7 +5,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.monitoreoconsumodelhogar.R;
-import com.example.monitoreoconsumodelhogar.ViewRoomsActivity;
 
 public class MainActivity extends AppCompatActivity {
 

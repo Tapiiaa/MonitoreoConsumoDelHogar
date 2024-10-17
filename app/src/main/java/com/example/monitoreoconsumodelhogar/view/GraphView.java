@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar;
+package com.example.monitoreoconsumodelhogar.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;

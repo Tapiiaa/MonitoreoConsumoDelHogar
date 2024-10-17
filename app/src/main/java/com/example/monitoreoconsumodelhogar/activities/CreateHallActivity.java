@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.monitoreoconsumodelhogar.Enums.HallDevices;
 import com.example.monitoreoconsumodelhogar.R;
-import com.example.monitoreoconsumodelhogar.RoomDatabaseHelper;
+import com.example.monitoreoconsumodelhogar.database.RoomDatabaseHelper;
 import com.example.monitoreoconsumodelhogar.threads.EnergyTask;
 import com.example.monitoreoconsumodelhogar.threads.ThreadManager;
 
