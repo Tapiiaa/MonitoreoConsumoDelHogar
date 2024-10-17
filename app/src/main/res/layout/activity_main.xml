@@ -34,7 +34,6 @@
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="Crear Pasillo"
-        android:layout_marginBottom="176dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/botones_redondeados"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,4 +42,19 @@
         app:layout_constraintWidth_percent="0.8"
         android:layout_gravity="center"
         />
+    <Button
+        android:id="@+id/seeRoomButton"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="Ver habitaciones"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/botones_redondeados"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_gravity="center"
+        />
+
+
 </LinearLayout>
