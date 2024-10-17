@@ -71,7 +71,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(kotlin("script-runtime"))
     implementation(libs.androidx.work.runtime)
-
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)

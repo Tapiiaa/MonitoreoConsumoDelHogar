@@ -11,7 +11,7 @@
 
         <!-- Actividad de splash screen -->
         <activity android:name=".activities.SplashActivity"
-            android:exported="true"> <!-- Sin tema específico -->
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,15 +23,16 @@
             android:exported="true" />
 
         <activity android:name=".activities.WelcomeActivity"
-           android:exported="true" />
+            android:exported="true" />
 
         <!-- MainActivity (después de iniciar sesión) -->
         <activity android:name=".activities.MainActivity"
             android:exported="true" />
 
-        <!-- Bienvenida y otras actividades adicionales -->
+        <!-- Actividades adicionales -->
         <activity android:name=".activities.CreateRoomActivity" />
         <activity android:name=".activities.CreateHallActivity" />
+        <activity android:name=".ViewRoomsActivity" />
 
     </application>
 </manifest>

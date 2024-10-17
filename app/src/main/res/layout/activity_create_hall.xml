@@ -2,81 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/textViewHallTitle"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/hallNumber"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Crear Hall"
-        android:textSize="24sp"
-        android:layout_marginTop="100dp"
-        android:layout_gravity="center"/>
+        android:hint="Número del pasillo" />
 
     <EditText
         android:id="@+id/hallDimensions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ingresa las dimensiones del pasillo"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/hallColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingresa el color del pasillo"
-        android:inputType="text" />
+        android:hint="Dimensiones del pasillo" />
 
     <Button
         android:id="@+id/addLightButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Añadir Luz"
-        android:layout_marginBottom="176dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/botones_redondeados"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        android:layout_gravity="center"
-        />
+        android:text="Añadir Luz" />
 
     <Button
-        android:id="@+id/addSensorButton"
+        android:id="@+id/addDeviceButton"
         android:layout_width="wrap_content"
-        android:text="Añadir Sensor"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="176dp"
-        android:layout_marginTop="-150dp"
-        android:layout_gravity="center"
-        android:background="@drawable/botones_redondeados"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        />
+        android:text="Añadir Dispositivo" />
 
     <TextView
         android:id="@+id/kwhHallTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="KWh: 0"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        android:text="KWh: 0.0" />
+
+    <ListView
+        android:id="@+id/devicesListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="0dp"
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="176dp"
-        android:background="@drawable/botones_redondeados"
-        android:text="Registrarse"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.8" />
+        android:text="Guardar Pasillo" />
+
+    <!-- Botón de volver -->
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volver" />
 
 </LinearLayout>
