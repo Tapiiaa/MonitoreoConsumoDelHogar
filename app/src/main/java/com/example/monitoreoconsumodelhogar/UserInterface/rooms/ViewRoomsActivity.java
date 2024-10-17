@@ -60,7 +60,7 @@ public class ViewRoomsActivity extends AppCompatActivity {
         roomsListView.setOnItemLongClickListener((parent, view, position, id) -> {
             // Obtener el nombre de la habitación desde el cursor
             Cursor cursor = (Cursor) adapter.getItem(position);
-            String roomName = cursor.getString(cursor.getColumnIndex(RoomDatabaseHelper.COLUMN_NAME));
+            String roomName = cursor.getString(cursor.getColumnIndexOrThrow(RoomDatabaseHelper.COLUMN_NAME));
 
             new AlertDialog.Builder(view.getContext())
                     .setTitle("Eliminar habitación")
