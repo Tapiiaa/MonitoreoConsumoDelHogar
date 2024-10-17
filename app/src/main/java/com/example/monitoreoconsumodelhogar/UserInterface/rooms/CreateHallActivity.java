@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar.activities;
+package com.example.monitoreoconsumodelhogar.UserInterface.rooms;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +12,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.monitoreoconsumodelhogar.Enums.HallDevices;
+import com.example.monitoreoconsumodelhogar.data.Enums.HallDevices;
 import com.example.monitoreoconsumodelhogar.R;
-import com.example.monitoreoconsumodelhogar.database.RoomDatabaseHelper;
-import com.example.monitoreoconsumodelhogar.threads.EnergyTask;
-import com.example.monitoreoconsumodelhogar.threads.ThreadManager;
+import com.example.monitoreoconsumodelhogar.UserInterface.main.MainActivity;
+import com.example.monitoreoconsumodelhogar.data.database.RoomDatabaseHelper;
+import com.example.monitoreoconsumodelhogar.workers.EnergyTask;
+import com.example.monitoreoconsumodelhogar.workers.ThreadManager;
 
 import java.util.ArrayList;
 import java.util.List;

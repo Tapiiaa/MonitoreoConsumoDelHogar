@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar.activities;
+package com.example.monitoreoconsumodelhogar.UserInterface.graphs;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 
 import com.example.monitoreoconsumodelhogar.view.PieChartView;
 import com.example.monitoreoconsumodelhogar.R;
-import com.example.monitoreoconsumodelhogar.database.RoomDatabaseHelper;
+import com.example.monitoreoconsumodelhogar.data.database.RoomDatabaseHelper;
 
 public class GraphActivity extends AppCompatActivity {
 

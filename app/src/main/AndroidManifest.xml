@@ -10,7 +10,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <!-- Actividad de splash screen -->
-        <activity android:name=".activities.SplashActivity"
+        <activity android:name=".UserInterface.main.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,21 +19,21 @@
         </activity>
 
         <!-- Actividad de inicio de sesión (Login) -->
-        <activity android:name=".activities.AccessActivity"
+        <activity android:name=".UserInterface.auth.AccessActivity"
             android:exported="true" />
 
-        <activity android:name=".activities.WelcomeActivity"
+        <activity android:name=".UserInterface.main.WelcomeActivity"
             android:exported="true" />
 
         <!-- MainActivity (después de iniciar sesión) -->
-        <activity android:name=".activities.MainActivity"
+        <activity android:name=".UserInterface.main.MainActivity"
             android:exported="true" />
 
         <!-- Actividades adicionales -->
-        <activity android:name=".activities.CreateRoomActivity" />
-        <activity android:name=".activities.CreateHallActivity" />
-        <activity android:name=".activities.ViewRoomsActivity" />
-        <activity android:name=".activities.GraphActivity" /> <!-- Añadido para la actividad del gráfico -->
+        <activity android:name=".UserInterface.rooms.CreateRoomActivity" />
+        <activity android:name=".UserInterface.rooms.CreateHallActivity" />
+        <activity android:name=".UserInterface.rooms.ViewRoomsActivity" />
+        <activity android:name=".UserInterface.graphs.GraphActivity" /> <!-- Añadido para la actividad del gráfico -->
 
     </application>
 </manifest>

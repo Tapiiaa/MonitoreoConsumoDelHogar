@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar.threads;
+package com.example.monitoreoconsumodelhogar.workers;
 
 import android.content.Context;
 import android.content.Intent;

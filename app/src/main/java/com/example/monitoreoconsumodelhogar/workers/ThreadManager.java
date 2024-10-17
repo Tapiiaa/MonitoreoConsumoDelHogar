@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar.threads;
+package com.example.monitoreoconsumodelhogar.workers;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

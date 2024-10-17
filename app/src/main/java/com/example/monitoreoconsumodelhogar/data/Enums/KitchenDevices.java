@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar.Enums;
+package com.example.monitoreoconsumodelhogar.data.Enums;
 
 public enum KitchenDevices {
 

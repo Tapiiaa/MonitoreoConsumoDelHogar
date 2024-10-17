@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar.activities;
+package com.example.monitoreoconsumodelhogar.UserInterface.main;
 
 
 import android.content.Intent;

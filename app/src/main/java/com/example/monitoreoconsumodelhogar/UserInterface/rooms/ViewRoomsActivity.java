@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar.activities;
+package com.example.monitoreoconsumodelhogar.UserInterface.rooms;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.MergeCursor;
 
 import com.example.monitoreoconsumodelhogar.R;
-import com.example.monitoreoconsumodelhogar.database.RoomDatabaseHelper;
+import com.example.monitoreoconsumodelhogar.UserInterface.graphs.GraphActivity;
+import com.example.monitoreoconsumodelhogar.data.database.RoomDatabaseHelper;
 
 public class ViewRoomsActivity extends AppCompatActivity {
 

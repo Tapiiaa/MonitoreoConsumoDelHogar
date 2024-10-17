@@ -1,4 +1,4 @@
-package com.example.monitoreoconsumodelhogar.activities;
+package com.example.monitoreoconsumodelhogar.UserInterface.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.monitoreoconsumodelhogar.R;
+import com.example.monitoreoconsumodelhogar.UserInterface.auth.AccessActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

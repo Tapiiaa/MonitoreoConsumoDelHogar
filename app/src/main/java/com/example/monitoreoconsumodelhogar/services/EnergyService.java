@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.example.monitoreoconsumodelhogar.threads.EnergyTask;
-import com.example.monitoreoconsumodelhogar.threads.ThreadManager;
+import com.example.monitoreoconsumodelhogar.workers.EnergyTask;
+import com.example.monitoreoconsumodelhogar.workers.ThreadManager;
 
 public class EnergyService extends Service {
     private ThreadManager threadManager;
