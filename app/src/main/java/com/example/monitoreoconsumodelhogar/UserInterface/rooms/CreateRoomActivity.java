@@ -122,15 +122,30 @@ public class CreateRoomActivity extends AppCompatActivity {
 
         // Guardar la habitación en la base de datos
         saveButton.setOnClickListener(v -> {
-            String roomName = roomTitle.getText().toString();
-            if (!roomName.isEmpty()) {
-                String devices = String.join(", ", addedDevices);
-                dbHelper.addRoom(roomName, devices, totalKWh);
-                Toast.makeText(this, "Habitación guardada", Toast.LENGTH_SHORT).show();
-            } else {
-                roomTitle.setError("El nombre de la habitación es obligatorio");
-            }
+            executorService.submit(() -> {
+                String roomName = roomTitle.getText().toString();
+                if (!roomName.isEmpty()) {
+                    // Comprobar si la habitación ya existe en la base de datos
+                    boolean roomExists = dbHelper.roomExists(roomName);
+                    if (roomExists) { //Si la habitacion existe, no se guarda y se muestra un mensaje de error.
+                        runOnUiThread(() -> {
+                            Toast.makeText(this, "La habitación ya existe", Toast.LENGTH_SHORT).show();
+                        });
+                    } else {
+                        String devices = String.join(", ", addedDevices);
+                        dbHelper.addRoom(roomName, devices, totalKWh);
+                        runOnUiThread(() -> {
+                            Toast.makeText(this, "Habitación guardada", Toast.LENGTH_SHORT).show();
+                        });
+                        // Ejecutar la tarea de energía solo si la habitación es guardada
+                        threadManager.submitTask(new EnergyTask(addedDevices.size(), getApplicationContext()));
+                    }
+                } else {
+                    runOnUiThread(() -> roomTitle.setError("El nombre de la habitación es obligatorio"));
+                }
+            });
         });
+
 
         // Botón de volver a la MainActivity
         backButton.setOnClickListener(v -> {

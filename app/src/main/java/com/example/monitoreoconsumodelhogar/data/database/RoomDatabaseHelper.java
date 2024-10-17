@@ -87,4 +87,14 @@ public class RoomDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_HALLS, null);
     }
+
+    // Método para verificar si una habitación ya existe en la base de datos
+    public boolean roomExists(String roomName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT 1 FROM " + TABLE_ROOMS + " WHERE " + COLUMN_NAME + " = ?", new String[]{roomName});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        db.close();
+        return exists;
+    }
 }
