@@ -86,23 +86,29 @@ public class CreateRoomActivity extends AppCompatActivity {
         });
 
         addMultiplugButton.setOnClickListener(v -> {
-            totalKWh += 1.2; // KWh fijo para un multienchufe
-            addedDevices.add("Multienchufe");
-            devicesAdapter.notifyDataSetChanged();
+            executorService.submit(() -> {
+                totalKWh += 1.2; // KWh fijo para un multienchufe
+                addedDevices.add("Multienchufe");
+                runOnUiThread(() -> {
+                    devicesAdapter.notifyDataSetChanged();
 
-            //No podemos agregar mas de 5 multienchufes
-            if (addedDevices.size() >= 5) {
-                addMultiplugButton.setEnabled(false);
-            }
-            kwhTextView.setText("KWh: " + totalKWh);
+                    //No podemos agregar mas de 5 multienchufes
+                    if (addedDevices.size() >= 5) {
+                        addMultiplugButton.setEnabled(false);
+                    }
+                    kwhTextView.setText("KWh: " + totalKWh);
+                });
+            });
 
             threadManager.submitTask(new EnergyTask(addedDevices.size(), getApplicationContext()));
 
         });
 
-        addDeviceButton.setOnClickListener(v -> {
-            showDeviceSelectionDialog(kwhTextView);
-        });
+        addDeviceButton.setOnClickListener(v -> executorService.submit(() -> {
+            runOnUiThread(() -> {
+                showDeviceSelectionDialog(kwhTextView);
+            });
+        }));
     }
 
     private void showDeviceSelectionDialog(TextView kwhTextView){
@@ -147,28 +153,32 @@ public class CreateRoomActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Selecciona un dispositivo").setItems(deviceNames, (dialog, which) -> {
-           double selectedKwh = 0.0;
-           String selectedDeviceName = deviceNames[which];
+           executorService.submit(() -> {
+               double selectedKwh = 0.0;
+               String selectedDeviceName = deviceNames[which];
 
-           if (which < kitchenDevices.length){
-               selectedKwh = kitchenDevices[which].getKwh();
-               selectedDeviceName = "Cocina - " + kitchenDevices[which].name();
-           } else if (which < kitchenDevices.length + livingroomDevices.length) {
-               selectedKwh = livingroomDevices[which - kitchenDevices.length].getKwh();
-               selectedDeviceName = "Livingroom - " + livingroomDevices[which - kitchenDevices.length].name();
-           } else if (which < kitchenDevices.length + livingroomDevices.length + bedroomDevices.length) {
-               selectedKwh = bedroomDevices[which - kitchenDevices.length - livingroomDevices.length].getKwh();
-               selectedDeviceName = "Dormitorio - " + bedroomDevices[which - kitchenDevices.length - livingroomDevices.length].name();
-           } else if(which < kitchenDevices.length + livingroomDevices.length + bedroomDevices.length + hallDevices.length){
-               selectedKwh = hallDevices[which - kitchenDevices.length - livingroomDevices.length - bedroomDevices.length].getKwh();
-               selectedDeviceName = "Hall - " + hallDevices[which - kitchenDevices.length - livingroomDevices.length - bedroomDevices.length].name();
-           }
+               if (which < kitchenDevices.length){
+                   selectedKwh = kitchenDevices[which].getKwh();
+                   selectedDeviceName = "Cocina - " + kitchenDevices[which].name();
+               } else if (which < kitchenDevices.length + livingroomDevices.length) {
+                   selectedKwh = livingroomDevices[which - kitchenDevices.length].getKwh();
+                   selectedDeviceName = "Livingroom - " + livingroomDevices[which - kitchenDevices.length].name();
+               } else if (which < kitchenDevices.length + livingroomDevices.length + bedroomDevices.length) {
+                   selectedKwh = bedroomDevices[which - kitchenDevices.length - livingroomDevices.length].getKwh();
+                   selectedDeviceName = "Dormitorio - " + bedroomDevices[which - kitchenDevices.length - livingroomDevices.length].name();
+               } else if(which < kitchenDevices.length + livingroomDevices.length + bedroomDevices.length + hallDevices.length){
+                   selectedKwh = hallDevices[which - kitchenDevices.length - livingroomDevices.length - bedroomDevices.length].getKwh();
+                   selectedDeviceName = "Hall - " + hallDevices[which - kitchenDevices.length - livingroomDevices.length - bedroomDevices.length].name();
+               }
 
-           //Al seleccionar un dispositivo, se añade al array de dispositivos seleccionados y se actualiza el TextView de KWh.
-           totalKWh += selectedKwh;
-           addedDevices.add(selectedDeviceName);
-           devicesAdapter.notifyDataSetChanged();
-           kwhTextView.setText("KWh: " + totalKWh);
+               //Al seleccionar un dispositivo, se añade al array de dispositivos seleccionados y se actualiza el TextView de KWh.
+               totalKWh += selectedKwh;
+               addedDevices.add(selectedDeviceName);
+               runOnUiThread(() -> {
+                   devicesAdapter.notifyDataSetChanged();
+                   kwhTextView.setText("KWh: " + totalKWh);
+               });
+           });
 
            //Ejecutamos una tarea en segundo plano para simular el consumo energético.
            threadManager.submitTask(new EnergyTask(addedDevices.size(), getApplicationContext()));
@@ -185,6 +195,8 @@ public class CreateRoomActivity extends AppCompatActivity {
         if(threadManager != null){
             threadManager.shutdown();
         }
-        threadManager.shutdown();
+        if(executorService != null){
+            executorService.shutdown();
+        }
     }
 }

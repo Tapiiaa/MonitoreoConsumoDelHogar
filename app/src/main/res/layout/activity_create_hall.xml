@@ -16,48 +16,54 @@
         android:layout_gravity="center"/>
 
     <EditText
+        android:id="@+id/hallNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingresa el número del pasillo"
+        android:inputType="number" />
+
+    <EditText
         android:id="@+id/hallDimensions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ingresa las dimensiones del pasillo"
         android:inputType="text" />
 
-    <EditText
-        android:id="@+id/hallColor"
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/addDeviceButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Ingresa el color del pasillo"
-        android:inputType="text" />
+        android:text="Añadir Dispositivos"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center"
+        android:background="@drawable/botones_redondeados"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
 
     <Button
         android:id="@+id/addLightButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/botones_redondeados"
         android:text="Añadir Luz"
-        android:layout_marginBottom="176dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/botones_redondeados"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        android:layout_gravity="center"
-        />
+        app:layout_constraintWidth_percent="0.8" />
 
-    <Button
-        android:id="@+id/addSensorButton"
-        android:layout_width="wrap_content"
-        android:text="Añadir Sensor"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="176dp"
-        android:layout_marginTop="-150dp"
-        android:layout_gravity="center"
-        android:background="@drawable/botones_redondeados"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        />
+    <ListView
+        android:id="@+id/devicesListView"
+        android:layout_width="match_parent"
+        android:layout_height="253dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="8dp" />
 
     <TextView
         android:id="@+id/kwhHallTextView"
@@ -66,17 +72,5 @@
         android:text="KWh: 0"
         android:textSize="18sp"
         android:layout_marginTop="16dp" />
-
-    <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="176dp"
-        android:background="@drawable/botones_redondeados"
-        android:text="Registrarse"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.8" />
 
 </LinearLayout>

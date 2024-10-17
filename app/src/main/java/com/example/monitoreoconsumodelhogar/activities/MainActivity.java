@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button createRoomButton = findViewById(R.id.createRoomButton);
         Button createHallButton = findViewById(R.id.createHallButton);
+        Button seeRoomButton = findViewById(R.id.seeRoomButton);
 
         createRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateHallActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        seeRoomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SeeRoomActivity.class);
                 startActivity(intent);
             }
         });
