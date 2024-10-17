@@ -3,10 +3,13 @@ package com.example.monitoreoconsumodelhogar.UserInterface.rooms;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.database.MergeCursor;
 
@@ -19,6 +22,7 @@ public class ViewRoomsActivity extends AppCompatActivity {
     private RoomDatabaseHelper dbHelper;
     private ListView roomsListView;
     private Button viewGraphButton;
+    private SimpleCursorAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,31 @@ public class ViewRoomsActivity extends AppCompatActivity {
         viewGraphButton.setOnClickListener(v -> {
             Intent intent = new Intent(ViewRoomsActivity.this, GraphActivity.class);
             startActivity(intent);
+        });
+
+        // Pulsacion larga sobre una habitacion para poder eliminarla de la base de datos.
+        roomsListView.setOnItemLongClickListener((parent, view, position, id) -> {
+            // Obtener el nombre de la habitación desde el cursor
+            Cursor cursor = (Cursor) adapter.getItem(position);
+            String roomName = cursor.getString(cursor.getColumnIndex(RoomDatabaseHelper.COLUMN_NAME));
+
+            new AlertDialog.Builder(view.getContext())
+                    .setTitle("Eliminar habitación")
+                    .setMessage("¿Estás seguro de que deseas eliminar la habitación " + roomName + "?")
+                    .setPositiveButton("Eliminar", (dialog, which) -> {
+                        // Eliminar la habitación de la base de datos
+                        dbHelper.deleteRoom(roomName);
+                        Toast.makeText(view.getContext(), "Habitación eliminada", Toast.LENGTH_SHORT).show();
+
+                        // Actualizar el cursor y el adaptador
+                        Cursor newRoomCursor = dbHelper.getAllRooms();
+                        Cursor newHallCursor = dbHelper.getAllHalls();
+                        MergeCursor newMergeCursor = new MergeCursor(new Cursor[]{newRoomCursor, newHallCursor});
+                        adapter.changeCursor(newMergeCursor);  // Actualizar el cursor en el adaptador
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+            return true;
         });
     }
 }
