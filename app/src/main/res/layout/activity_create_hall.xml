@@ -1,56 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/hallNumber"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Número del pasillo" />
+        android:layout_marginBottom="16dp"
+        android:hint="Número del pasillo"
+        app:layout_constraintBottom_toTopOf="@id/hallDimensions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
 
     <EditText
         android:id="@+id/hallDimensions"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Dimensiones del pasillo" />
+        android:layout_marginBottom="16dp"
+        android:hint="Dimensiones del pasillo"
+        app:layout_constraintBottom_toTopOf="@id/addLightButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
 
     <Button
         android:id="@+id/addLightButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Añadir Luz" />
+        android:layout_marginBottom="16dp"
+        android:text="Añadir Luz"
+        android:background="@drawable/botones_redondeados"
+        app:layout_constraintBottom_toTopOf="@id/addDeviceButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
 
     <Button
         android:id="@+id/addDeviceButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Añadir Dispositivo" />
+        android:layout_marginBottom="16dp"
+        android:text="Añadir Dispositivo"
+        android:background="@drawable/botones_redondeados"
+        app:layout_constraintBottom_toTopOf="@id/kwhHallTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
 
     <TextView
         android:id="@+id/kwhHallTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="KWh: 0.0" />
+        android:text="KWh: 0.0"
+        app:layout_constraintBottom_toTopOf="@id/devicesListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/devicesListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kwhHallTextView"
+        app:layout_constraintWidth_percent="0.8" />
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Guardar Pasillo" />
+        android:layout_marginBottom="16dp"
+        android:text="Guardar Pasillo"
+        app:layout_constraintBottom_toTopOf="@id/backButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8"
+        />
 
-    <!-- Botón de volver -->
+
+
     <Button
         android:id="@+id/backButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Volver" />
+        android:layout_marginBottom="16dp"
+        android:text="Volver"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
