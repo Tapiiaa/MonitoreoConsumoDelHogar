@@ -97,4 +97,12 @@ public class RoomDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return exists;
     }
+
+    // Método para eliminar una habitación de la base de datos
+    public void deleteRoom(String roomName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_ROOMS, COLUMN_NAME + " = ?", new String[]{roomName});
+        db.close();
+    }
+
 }
