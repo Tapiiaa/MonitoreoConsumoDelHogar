@@ -3,6 +3,7 @@ package com.example.monitoreoconsumodelhogar.UserInterface.rooms;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -58,26 +59,30 @@ public class ViewRoomsActivity extends AppCompatActivity {
 
         // Pulsacion larga sobre una habitacion para poder eliminarla de la base de datos.
         roomsListView.setOnItemLongClickListener((parent, view, position, id) -> {
+            Log.d("ViewRoomsActivity", "Item long clicked at position: " + position);
+
             // Obtener el nombre de la habitación desde el cursor
             Cursor cursor = (Cursor) adapter.getItem(position);
-            String roomName = cursor.getString(cursor.getColumnIndexOrThrow(RoomDatabaseHelper.COLUMN_NAME));
 
-            new AlertDialog.Builder(view.getContext())
-                    .setTitle("Eliminar habitación")
-                    .setMessage("¿Estás seguro de que deseas eliminar la habitación " + roomName + "?")
-                    .setPositiveButton("Eliminar", (dialog, which) -> {
-                        // Eliminar la habitación de la base de datos
-                        dbHelper.deleteRoom(roomName);
-                        Toast.makeText(view.getContext(), "Habitación eliminada", Toast.LENGTH_SHORT).show();
+            if(cursor != null){
+                String roomName = cursor.getString(cursor.getColumnIndexOrThrow(RoomDatabaseHelper.COLUMN_NAME));
+                new AlertDialog.Builder(ViewRoomsActivity.this)
+                        .setTitle("Eliminar habitación")
+                        .setMessage("¿Estás seguro de que deseas eliminar la habitación " + roomName + "?")
+                        .setPositiveButton("Eliminar", (dialog, which) -> {
+                            // Eliminar la habitación de la base de datos
+                            dbHelper.deleteRoom(roomName);
+                            Toast.makeText(view.getContext(), "Habitación eliminada", Toast.LENGTH_SHORT).show();
 
-                        // Actualizar el cursor y el adaptador
-                        Cursor newRoomCursor = dbHelper.getAllRooms();
-                        Cursor newHallCursor = dbHelper.getAllHalls();
-                        MergeCursor newMergeCursor = new MergeCursor(new Cursor[]{newRoomCursor, newHallCursor});
-                        adapter.changeCursor(newMergeCursor);  // Actualizar el cursor en el adaptador
-                    })
-                    .setNegativeButton("Cancelar", null)
-                    .show();
+                            // Actualizar el cursor y el adaptador
+                            Cursor newRoomCursor = dbHelper.getAllRooms();
+                            Cursor newHallCursor = dbHelper.getAllHalls();
+                            MergeCursor newMergeCursor = new MergeCursor(new Cursor[]{newRoomCursor, newHallCursor});
+                            adapter.changeCursor(newMergeCursor);  // Actualizar el cursor en el adaptador
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .show();    // Mostrar el diálogo
+            }
             return true;
         });
     }
