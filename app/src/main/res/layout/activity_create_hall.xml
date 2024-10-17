@@ -10,7 +10,7 @@
         android:id="@+id/textViewHallTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crear Hall"
+        android:text="Crear Pasillo"
         android:textSize="24sp"
         android:layout_marginTop="100dp"
         android:layout_gravity="center"/>
