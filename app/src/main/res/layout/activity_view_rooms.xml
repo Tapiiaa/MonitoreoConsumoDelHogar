@@ -17,8 +17,9 @@
     <!-- Botón de ver gráfico en la parte inferior derecha -->
     <Button
         android:id="@+id/viewGraphButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/botones_redondeados"
         android:text="Ver gráfico"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
