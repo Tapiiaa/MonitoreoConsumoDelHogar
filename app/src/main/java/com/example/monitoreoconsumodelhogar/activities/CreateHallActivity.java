@@ -12,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.monitoreoconsumodelhogar.Enums.HallDevices;
 import com.example.monitoreoconsumodelhogar.R;
+import com.example.monitoreoconsumodelhogar.threads.EnergyTask;
 import com.example.monitoreoconsumodelhogar.threads.ThreadManager;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CreateHallActivity extends AppCompatActivity {
 
@@ -31,6 +33,10 @@ public class CreateHallActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_hall);
 
+        //Inicializamos el threadManager con 3 hilos y el executorService con un pool de 5 hilos
+        threadManager = new ThreadManager(3);
+        executorService = Executors.newFixedThreadPool(5);
+
         EditText hallDimensions = findViewById(R.id.hallDimensions);
         EditText hallNumber = findViewById(R.id.hallNumber); // Campo para identificar el pasillo.
         Button addLightButton = findViewById(R.id.addLightButton);
@@ -44,13 +50,14 @@ public class CreateHallActivity extends AppCompatActivity {
         addLightButton.setOnClickListener(v -> {
             totalKWh += 0.4; // KWh fijo para una luz
             addedDevices.add("Luz");
-            devicesAdapter.notifyDataSetChanged();
-            kwhHallTextView.setText("KWh: " + totalKWh);
+            runOnUiThread(() -> {
+                devicesAdapter.notifyDataSetChanged();
+                kwhHallTextView.setText("KWh: " + totalKWh);
+            });
         });
 
-        addDeviceButton.setOnClickListener(v -> {
-            showDeviceSelectionDialog(kwhHallTextView);
-        });
+        //Mostramos el dialogo para seleccionar un dispositivo.
+        addDeviceButton.setOnClickListener(v -> executorService.submit(() -> runOnUiThread(() -> showDeviceSelectionDialog(kwhHallTextView))));
     }
 
     private void showDeviceSelectionDialog(TextView kwhHallTextView) {
@@ -63,16 +70,34 @@ public class CreateHallActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Selecciona un dispositivo").setItems(deviceNames, (dialog, which) -> {
-            double selectedKwh = hallDevices[which].getKwh();
-            String selectedDeviceName = hallDevices[which].name();
+            executorService.submit(() -> {
+                double selectedKwh = hallDevices[which].getKwh();
+                String selectedDeviceName = hallDevices[which].name();
 
-            // Al seleccionar un dispositivo, se añade al array de dispositivos seleccionados y se actualiza el TextView de KWh.
-            totalKWh += selectedKwh;
-            addedDevices.add(selectedDeviceName);
-            devicesAdapter.notifyDataSetChanged();
-            kwhHallTextView.setText("KWh: " + totalKWh);
+                // Al seleccionar un dispositivo, se añade al array de dispositivos seleccionados y se actualiza el TextView de KWh.
+                totalKWh += selectedKwh;
+                addedDevices.add(selectedDeviceName);
+
+                runOnUiThread(() -> {
+                    devicesAdapter.notifyDataSetChanged();
+                    kwhHallTextView.setText("KWh: " + totalKWh);
+                });
+                threadManager.submitTask(new EnergyTask(addedDevices.size(), getApplicationContext()));
+            });
         });
 
         builder.create().show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Apagar los hilos de manera controlada al destruir la actividad
+        if (threadManager != null) {
+            threadManager.shutdown();
+        }
+        if (executorService != null) {
+            executorService.shutdown();
+        }
     }
 }
