@@ -25,7 +25,7 @@ Este proyecto consiste en una aplicación Android para monitorear el consumo ene
 - Similar a `CreateRoomActivity`, esta actividad permite la creación de pasillos.
 - Los usuarios pueden asociar dispositivos a los pasillos, y estos dispositivos se suman al cálculo de consumo energético.
 
-### `SeeRoomActivity`
+### `ViewRoomActivity`
 - Muestra una lista de todas las habitaciones y pasillos que han sido creados por el usuario o compartidos con él.
 - Permite la selección de una habitación para ver el consumo energético de los dispositivos que están asociados a esa habitación.
 
