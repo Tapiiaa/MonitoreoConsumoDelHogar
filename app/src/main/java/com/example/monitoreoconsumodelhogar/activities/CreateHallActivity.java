@@ -1,16 +1,30 @@
 package com.example.monitoreoconsumodelhogar.activities;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.monitoreoconsumodelhogar.Enums.HallDevices;
 import com.example.monitoreoconsumodelhogar.R;
+import com.example.monitoreoconsumodelhogar.threads.ThreadManager;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 public class CreateHallActivity extends AppCompatActivity {
 
     private double totalKWh = 0.0;
+    private ThreadManager threadManager;
+    private ExecutorService executorService;
+    private List<String> addedDevices = new ArrayList<>();
+    private ArrayAdapter<String> devicesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,19 +32,47 @@ public class CreateHallActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_hall);
 
         EditText hallDimensions = findViewById(R.id.hallDimensions);
-        EditText hallColor = findViewById(R.id.hallColor);
+        EditText hallNumber = findViewById(R.id.hallNumber); // Campo para identificar el pasillo.
         Button addLightButton = findViewById(R.id.addLightButton);
-        Button addSensorButton = findViewById(R.id.addSensorButton);
+        Button addDeviceButton = findViewById(R.id.addDeviceButton);
         TextView kwhHallTextView = findViewById(R.id.kwhHallTextView);
+        ListView devicesListView = findViewById(R.id.devicesListView);
+
+        devicesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, addedDevices);
+        devicesListView.setAdapter(devicesAdapter);
 
         addLightButton.setOnClickListener(v -> {
             totalKWh += 0.4; // KWh fijo para una luz
+            addedDevices.add("Luz");
+            devicesAdapter.notifyDataSetChanged();
             kwhHallTextView.setText("KWh: " + totalKWh);
         });
 
-        addSensorButton.setOnClickListener(v -> {
-            totalKWh += 0.7; // KWh fijo para un sensor
+        addDeviceButton.setOnClickListener(v -> {
+            showDeviceSelectionDialog(kwhHallTextView);
+        });
+    }
+
+    private void showDeviceSelectionDialog(TextView kwhHallTextView) {
+        // Crear un array con los nombres de los dispositivos disponibles para el pasillo
+        HallDevices[] hallDevices = HallDevices.values();
+        String[] deviceNames = new String[hallDevices.length];
+        for (int i = 0; i < hallDevices.length; i++) {
+            deviceNames[i] = hallDevices[i].name();
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Selecciona un dispositivo").setItems(deviceNames, (dialog, which) -> {
+            double selectedKwh = hallDevices[which].getKwh();
+            String selectedDeviceName = hallDevices[which].name();
+
+            // Al seleccionar un dispositivo, se añade al array de dispositivos seleccionados y se actualiza el TextView de KWh.
+            totalKWh += selectedKwh;
+            addedDevices.add(selectedDeviceName);
+            devicesAdapter.notifyDataSetChanged();
             kwhHallTextView.setText("KWh: " + totalKWh);
         });
+
+        builder.create().show();
     }
 }
