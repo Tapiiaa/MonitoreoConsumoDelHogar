@@ -1,5 +1,6 @@
 package com.example.monitoreoconsumodelhogar.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import com.example.monitoreoconsumodelhogar.Enums.LivingroomDevices;
 import com.example.monitoreoconsumodelhogar.R;
 import com.example.monitoreoconsumodelhogar.threads.ThreadManager;
 import com.example.monitoreoconsumodelhogar.threads.EnergyTask;
+import com.example.monitoreoconsumodelhogar.RoomDatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,8 @@ public class CreateRoomActivity extends AppCompatActivity {
     private ArrayAdapter<String> devicesAdapter;
     private ThreadManager threadManager;
     private ExecutorService executorService;
+    private RoomDatabaseHelper dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +62,14 @@ public class CreateRoomActivity extends AppCompatActivity {
             }
         });
 
+        dbHelper = new RoomDatabaseHelper(this); //Iniciamos base de datos.
+
         EditText roomTitle = findViewById(R.id.roomTitle);
         EditText roomDimensions = findViewById(R.id.roomDimensions);
         Button addMultiplugButton = findViewById(R.id.addMultiplugButton);
         Button addDeviceButton = findViewById(R.id.addDeviceButton);
+        Button saveButton = findViewById(R.id.saveButton);
+        Button backButton = findViewById(R.id.backButton);
         TextView kwhTextView = findViewById(R.id.kwhTextView);
         ListView devicesListView = findViewById(R.id.devicesListView);
 
@@ -109,6 +118,24 @@ public class CreateRoomActivity extends AppCompatActivity {
                 showDeviceSelectionDialog(kwhTextView);
             });
         }));
+
+        // Guardar la habitación en la base de datos
+        saveButton.setOnClickListener(v -> {
+            String roomName = roomTitle.getText().toString();
+            if (!roomName.isEmpty()) {
+                String devices = String.join(", ", addedDevices);
+                dbHelper.addRoom(roomName, devices, totalKWh);
+                Toast.makeText(this, "Habitación guardada", Toast.LENGTH_SHORT).show();
+            } else {
+                roomTitle.setError("El nombre de la habitación es obligatorio");
+            }
+        });
+
+        // Botón de volver a la MainActivity
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(CreateRoomActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void showDeviceSelectionDialog(TextView kwhTextView){
