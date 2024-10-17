@@ -1,17 +1,20 @@
 package com.example.monitoreoconsumodelhogar.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.monitoreoconsumodelhogar.Enums.HallDevices;
 import com.example.monitoreoconsumodelhogar.R;
+import com.example.monitoreoconsumodelhogar.RoomDatabaseHelper;
 import com.example.monitoreoconsumodelhogar.threads.EnergyTask;
 import com.example.monitoreoconsumodelhogar.threads.ThreadManager;
 
@@ -27,6 +30,7 @@ public class CreateHallActivity extends AppCompatActivity {
     private ExecutorService executorService;
     private List<String> addedDevices = new ArrayList<>();
     private ArrayAdapter<String> devicesAdapter;
+    private RoomDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +40,14 @@ public class CreateHallActivity extends AppCompatActivity {
         //Inicializamos el threadManager con 3 hilos y el executorService con un pool de 5 hilos
         threadManager = new ThreadManager(3);
         executorService = Executors.newFixedThreadPool(5);
+        dbHelper = new RoomDatabaseHelper(this); //Iniciamos base de datos.
 
         EditText hallDimensions = findViewById(R.id.hallDimensions);
-        EditText hallNumber = findViewById(R.id.hallNumber); // Campo para identificar el pasillo.
+        EditText hallNumberEditText = findViewById(R.id.hallNumber); // Campo para identificar el pasillo.
         Button addLightButton = findViewById(R.id.addLightButton);
         Button addDeviceButton = findViewById(R.id.addDeviceButton);
+        Button saveButton = findViewById(R.id.saveButton);
+        Button backButton = findViewById(R.id.backButton);
         TextView kwhHallTextView = findViewById(R.id.kwhHallTextView);
         ListView devicesListView = findViewById(R.id.devicesListView);
 
@@ -58,7 +65,39 @@ public class CreateHallActivity extends AppCompatActivity {
 
         //Mostramos el dialogo para seleccionar un dispositivo.
         addDeviceButton.setOnClickListener(v -> executorService.submit(() -> runOnUiThread(() -> showDeviceSelectionDialog(kwhHallTextView))));
+
+        // Guardar la habitación en la base de datos
+        saveButton.setOnClickListener(v -> {
+            String hallNumberText = hallNumberEditText.getText().toString().trim();
+            String hallDimensionsText = hallDimensions.getText().toString().trim();
+
+            if (!hallNumberText.isEmpty()) {
+                try {
+                    int hallNumber = Integer.parseInt(hallNumberText);
+                    String devices = String.join(", ", addedDevices);
+                    dbHelper.addHall(hallNumber, devices, totalKWh);
+                    Toast.makeText(this, "Pasillo guardado", Toast.LENGTH_SHORT).show();
+                } catch (NumberFormatException e) {
+                    hallNumberEditText.setError("El número del pasillo debe ser un valor numérico");
+                }
+            } else {
+                if (hallNumberText.isEmpty()) {
+                    hallNumberEditText.setError("El número del pasillo es obligatorio");
+                }
+                if (hallDimensionsText.isEmpty()) {
+                    hallDimensions.setError("Las dimensiones del pasillo son obligatorias");
+                }
+            }
+        });
+
+        // Botón de volver a la MainActivity
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(CreateHallActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
+
 
     private void showDeviceSelectionDialog(TextView kwhHallTextView) {
         // Crear un array con los nombres de los dispositivos disponibles para el pasillo
