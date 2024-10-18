@@ -103,7 +103,7 @@ public class CreateRoomActivity extends AppCompatActivity {
                     devicesAdapter.notifyDataSetChanged();
 
                     //No podemos agregar mas de 5 multienchufes
-                    if (addedDevices.size() >= 5) {
+                    if (addedDevices.size() >= 10) {
                         addMultiplugButton.setEnabled(false);
                     }
                     kwhTextView.setText("KWh: " + totalKWh);
