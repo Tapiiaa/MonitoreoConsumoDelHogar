@@ -2,6 +2,9 @@ package com.example.monitoreoconsumodelhogar.UserInterface.rooms;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +44,18 @@ public class CreateHallActivity extends AppCompatActivity {
         //Inicializamos el threadManager con 3 hilos y el executorService con un pool de 5 hilos
         threadManager = new ThreadManager(3);
         executorService = Executors.newFixedThreadPool(5);
+
+        executorService.submit(() -> {
+            try {
+                Thread.sleep(500);
+                runOnUiThread(() -> {
+                    Log.d("CreateHallActivity", "Recursos iniciales cargados");
+                });
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        });
+
         dbHelper = new RoomDatabaseHelper(this); //Iniciamos base de datos.
 
         EditText hallDimensions = findViewById(R.id.hallDimensions);
@@ -55,13 +70,36 @@ public class CreateHallActivity extends AppCompatActivity {
         devicesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, addedDevices);
         devicesListView.setAdapter(devicesAdapter);
 
+        //De esta manera, nos aseguramos de que el campo en el que se introduce el numero identificador del pasillo no esta vacio.
+        hallNumberEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().isEmpty()){
+                    hallNumberEditText.setError("Este campo es obliatorio");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         addLightButton.setOnClickListener(v -> {
-            totalKWh += 0.4; // KWh fijo para una luz
-            addedDevices.add("Luz");
-            runOnUiThread(() -> {
-                devicesAdapter.notifyDataSetChanged();
-                kwhHallTextView.setText("KWh: " + totalKWh);
+            executorService.submit(() -> {
+                totalKWh += 0.4; // KWh fijo para una luz
+                addedDevices.add("Luz");
+                runOnUiThread(() -> {
+                    devicesAdapter.notifyDataSetChanged();
+                    kwhHallTextView.setText("KWh: " + totalKWh);
+                });
             });
+            threadManager.submitTask(new EnergyTask(addedDevices.size(), getApplicationContext()));
         });
 
         //Mostramos el dialogo para seleccionar un dispositivo.
@@ -69,26 +107,28 @@ public class CreateHallActivity extends AppCompatActivity {
 
         // Guardar la habitación en la base de datos
         saveButton.setOnClickListener(v -> {
-            String hallNumberText = hallNumberEditText.getText().toString().trim();
-            String hallDimensionsText = hallDimensions.getText().toString().trim();
+            executorService.submit(() -> {
+                String hallNumberText = hallNumberEditText.getText().toString().trim();
+                String hallDimensionsText = hallDimensions.getText().toString().trim();
 
-            if (!hallNumberText.isEmpty()) {
-                try {
-                    int hallNumber = Integer.parseInt(hallNumberText);
-                    String devices = String.join(", ", addedDevices);
-                    dbHelper.addHall(hallNumber, devices, totalKWh);
-                    Toast.makeText(this, "Pasillo guardado", Toast.LENGTH_SHORT).show();
-                } catch (NumberFormatException e) {
-                    hallNumberEditText.setError("El número del pasillo debe ser un valor numérico");
+                if (!hallNumberText.isEmpty()) {
+                    try {
+                        int hallNumber = Integer.parseInt(hallNumberText);
+                        String devices = String.join(", ", addedDevices);
+                        dbHelper.addHall(hallNumber, devices, totalKWh);
+                        Toast.makeText(this, "Pasillo guardado", Toast.LENGTH_SHORT).show();
+                    } catch (NumberFormatException e) {
+                        hallNumberEditText.setError("El número del pasillo debe ser un valor numérico");
+                    }
+                } else {
+                    if (hallNumberText.isEmpty()) {
+                        hallNumberEditText.setError("El número del pasillo es obligatorio");
+                    }
+                    if (hallDimensionsText.isEmpty()) {
+                        hallDimensions.setError("Las dimensiones del pasillo son obligatorias");
+                    }
                 }
-            } else {
-                if (hallNumberText.isEmpty()) {
-                    hallNumberEditText.setError("El número del pasillo es obligatorio");
-                }
-                if (hallDimensionsText.isEmpty()) {
-                    hallDimensions.setError("Las dimensiones del pasillo son obligatorias");
-                }
-            }
+            });
         });
 
         // Botón de volver a la MainActivity
